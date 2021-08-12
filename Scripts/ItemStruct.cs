@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class ItemStruct : MonoBehaviour
+public class ItemStruct
 {
     public int Id { get; }
     public int Quantity { get; set; }

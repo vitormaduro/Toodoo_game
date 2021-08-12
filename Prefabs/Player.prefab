@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &440568911639952263
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4471567072862446023}
+  m_Layer: 0
+  m_Name: ProjectileSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4471567072862446023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440568911639952263}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.983, z: 1.037}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7532361411176365848}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4598878920113266854
 GameObject:
   m_ObjectHideFlags: 0
@@ -961,6 +991,7 @@ Transform:
   - {fileID: 7532278783989639330}
   - {fileID: 7532584076406438750}
   - {fileID: 5786131504382787538}
+  - {fileID: 4471567072862446023}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1032,6 +1063,7 @@ MonoBehaviour:
   playerSpeed: 20
   jumpSpeed: 0.2
   gravitySpeed: 1
+  isInventoryOpen: 0
 --- !u!114 &7346770010350638313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1044,6 +1076,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d225e3a62ad14bc40a85a00d272512fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInventoryOpen: 0
+  hasMagic: 1
 --- !u!114 &1685129014564822334
 MonoBehaviour:
   m_ObjectHideFlags: 0
