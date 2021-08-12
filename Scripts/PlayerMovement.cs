@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     CharacterController controller;
-    Transform camera;
     Animator animator;
     Vector3 playerVelocity;
     float vSpeed;
@@ -19,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
-        camera = gameObject.GetComponentInChildren<Camera>().transform;
         animator = gameObject.GetComponent<Animator>();
     }
 
@@ -31,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal") * playerSpeed * Time.deltaTime;
         float vertical = Input.GetAxis("Vertical") * playerSpeed * Time.deltaTime;
 
-        Vector3 movement = camera.transform.right * horizontal + camera.transform.forward * vertical;
+        Vector3 movement = transform.right * horizontal + transform.forward * vertical;
         if(controller.isGrounded)
         {
             vSpeed = 0f;
@@ -52,13 +50,5 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isMoving", false);
         }
-
-        transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * 250 * Time.deltaTime);
-
-        Quaternion camRotation = camera.rotation;
-        camRotation.x = 0f;
-        camRotation.z = 0f;
-
-        transform.rotation = Quaternion.Lerp(transform.rotation, camRotation, 0.1f);
     }
 }
