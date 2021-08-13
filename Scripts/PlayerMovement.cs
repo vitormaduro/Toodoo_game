@@ -51,4 +51,17 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isMoving", false);
         }
     }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if(hit.transform.CompareTag("MovObj"))
+        {
+            Rigidbody rb = hit.collider.attachedRigidbody;
+
+            if(rb && !rb.isKinematic)
+            {
+                rb.AddForce(hit.moveDirection * 5);
+            }
+        }
+    }
 }

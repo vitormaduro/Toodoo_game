@@ -58,8 +58,8 @@ public class PlayerCamera : MonoBehaviour
         Vector3 start = targetTransform.position;
         Vector3 dir = transform.position - targetTransform.position;
         float dist = CamOffset.z * -1;
-        Debug.DrawRay(targetTransform.position, dir, Color.green);
-        if (Physics.Raycast(targetTransform.position, dir, out hit, dist, wallLayer))
+
+        if (Physics.Raycast(start, dir, out hit, dist, wallLayer))
         {
             float hitDist = hit.distance;
             Vector3 sphereCastCenter = targetTransform.position + (dir.normalized * hitDist);

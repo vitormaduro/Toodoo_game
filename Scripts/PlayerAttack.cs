@@ -21,7 +21,7 @@ public class PlayerAttack : MonoBehaviour
     {
         animator = gameObject.GetComponent<Animator>();
         fireballPrefab = Resources.Load<GameObject>("Fireball");
-        projectileSpawnPoint = transform.GetChild(3);
+        projectileSpawnPoint = transform.Find("ProjectileSpawn");
         defendAuraPrefab = Resources.Load<GameObject>("DefendAura");
         lightningPrefab = Resources.Load<GameObject>("Lightning");
     }
