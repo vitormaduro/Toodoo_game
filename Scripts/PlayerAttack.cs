@@ -9,8 +9,6 @@ public class PlayerAttack : MonoBehaviour
     GameObject projectile;
     GameObject defendAuraPrefab;
     GameObject activeAura;
-    GameObject lightningPrefab;
-    GameObject activeLightning;
     Transform projectileSpawnPoint;
 
     public bool isInventoryOpen = false;
@@ -23,7 +21,6 @@ public class PlayerAttack : MonoBehaviour
         fireballPrefab = Resources.Load<GameObject>("Fireball");
         projectileSpawnPoint = transform.Find("ProjectileSpawn");
         defendAuraPrefab = Resources.Load<GameObject>("DefendAura");
-        lightningPrefab = Resources.Load<GameObject>("Lightning");
     }
 
     // Update is called once per frame
@@ -42,20 +39,6 @@ public class PlayerAttack : MonoBehaviour
         else if(Input.GetButtonUp("Fire2"))
         {
             animator.SetBool("isAttacking2", false);
-        }
-
-        if (Input.GetButtonDown("Fire1"))
-        {
-            animator.SetBool("isAttacking1", true);
-
-            activeLightning = Instantiate(lightningPrefab, projectileSpawnPoint.transform.position, Quaternion.identity);
-            activeLightning.GetComponent<DigitalRuby.LightningBolt.LightningBoltScript>().StartPosition = projectileSpawnPoint.transform.position;
-            activeLightning.GetComponent<DigitalRuby.LightningBolt.LightningBoltScript>().EndPosition = gameObject.transform.position + (gameObject.transform.forward * 15);
-
-        }
-        else if (Input.GetButtonUp("Fire1"))
-        {
-            animator.SetBool("isAttacking1", false);
         }
 
         if(Input.GetButtonDown("Defend"))

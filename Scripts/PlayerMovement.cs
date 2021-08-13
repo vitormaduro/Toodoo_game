@@ -72,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
         if(other.CompareTag("Finish"))
         {
             canMove = false;
+            animator.SetBool("isMoving", false);
             animator.SetBool("hasWon", true);
             gc.FinishGame();
         }

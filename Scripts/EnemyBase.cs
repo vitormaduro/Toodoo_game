@@ -5,8 +5,10 @@ using UnityEngine;
 public class EnemyBase : MonoBehaviour
 {
     public float health;
-    
-    GameController gc;
+    public bool isAlert;
+    public bool canAttack;
+
+    private GameController gc;
 
     // Start is called before the first frame update
     void Start()
