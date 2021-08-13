@@ -54,12 +54,11 @@ public class PlayerCamera : MonoBehaviour
     public LayerMask wallLayer;
     void CheckWall()
     {
-        RaycastHit hit;
         Vector3 start = targetTransform.position;
         Vector3 dir = transform.position - targetTransform.position;
         float dist = CamOffset.z * -1;
 
-        if (Physics.Raycast(start, dir, out hit, dist, wallLayer))
+        if (Physics.Raycast(start, dir, out RaycastHit hit, dist, wallLayer))
         {
             float hitDist = hit.distance;
             Vector3 sphereCastCenter = targetTransform.position + (dir.normalized * hitDist);

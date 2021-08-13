@@ -8,23 +8,25 @@ public class PlayerMovement : MonoBehaviour
     Animator animator;
     Vector3 playerVelocity;
     float vSpeed;
+    GameController gc;
 
     public float playerSpeed = 20.0f;
     public float jumpSpeed = 0.2f;
     public float gravitySpeed = 1f;
-    public bool isInventoryOpen = false;
+    public bool canMove = true;
 
     // Start is called before the first frame update
     void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
         animator = gameObject.GetComponent<Animator>();
+        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isInventoryOpen) return;
+        if (!canMove) return;
 
         float horizontal = Input.GetAxis("Horizontal") * playerSpeed * Time.deltaTime;
         float vertical = Input.GetAxis("Vertical") * playerSpeed * Time.deltaTime;
@@ -62,6 +64,16 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.AddForce(hit.moveDirection * 5);
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Finish"))
+        {
+            canMove = false;
+            animator.SetBool("hasWon", true);
+            gc.FinishGame();
         }
     }
 }

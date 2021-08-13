@@ -24,7 +24,7 @@ public class PlayerInventory : MonoBehaviour
         if(Input.GetButtonDown("Inventory"))
         {
             inventoryUi.enabled = !inventoryUi.enabled;
-            playerMovementScript.isInventoryOpen = inventoryUi.enabled;
+            playerMovementScript.canMove = inventoryUi.enabled;
             playerAttackScript.isInventoryOpen = inventoryUi.enabled;
         }
     }
