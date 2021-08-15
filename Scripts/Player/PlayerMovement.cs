@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    CharacterController controller;
-    Animator animator;
-    Vector3 playerVelocity;
-    float vSpeed;
-    GameController gc;
+    private CharacterController controller;
+    private Animator animator;
+    private Vector3 playerVelocity;
+    private float vSpeed;
+    private GameController gc;
+    private PlayerBase player;
+    private float playerSpeed;
 
-    public float playerSpeed = 20.0f;
     public float jumpSpeed = 0.2f;
     public float gravitySpeed = 1f;
-    public bool canMove = true;
 
     // Start is called before the first frame update
     void Start()
     {
+        player = GetComponent<PlayerBase>();
         controller = gameObject.GetComponent<CharacterController>();
         animator = gameObject.GetComponent<Animator>();
         gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
@@ -26,7 +27,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!canMove) return;
+        if (!player.canMove) return;
+
+        playerSpeed = player.moveSpeed;
 
         float horizontal = Input.GetAxis("Horizontal") * playerSpeed * Time.deltaTime;
         float vertical = Input.GetAxis("Vertical") * playerSpeed * Time.deltaTime;
@@ -71,10 +74,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if(other.CompareTag("Finish"))
         {
-            canMove = false;
+            player.canMove = false;
             animator.SetBool("isMoving", false);
             animator.SetBool("hasWon", true);
-            gc.FinishGame();
+            StartCoroutine(gc.FinishGame(true));
         }
     }
 }

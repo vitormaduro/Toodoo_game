@@ -5,15 +5,13 @@ using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 { 
-    Canvas inventoryUi;
-    PlayerMovement playerMovementScript;
-    PlayerAttack playerAttackScript;
-    List<ItemStruct> inventory = new List<ItemStruct>();
+    private Canvas inventoryUi;
+    private List<ItemStruct> inventory = new List<ItemStruct>();
+    private PlayerBase player;
 
     void Start()
     {
-        playerMovementScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
-        playerAttackScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
+        player = GetComponent<PlayerBase>();
         inventoryUi = GameObject.FindGameObjectWithTag("Inventory UI").GetComponent<Canvas>();
         inventoryUi.enabled = false;
     }
@@ -24,8 +22,8 @@ public class PlayerInventory : MonoBehaviour
         if(Input.GetButtonDown("Inventory"))
         {
             inventoryUi.enabled = !inventoryUi.enabled;
-            playerMovementScript.canMove = inventoryUi.enabled;
-            playerAttackScript.isInventoryOpen = inventoryUi.enabled;
+            player.canMove = !inventoryUi.enabled;
+            player.canAttack = !inventoryUi.enabled;
         }
     }
 
@@ -60,5 +58,10 @@ public class PlayerInventory : MonoBehaviour
         ItemStruct newItem = new ItemStruct(item, 1);
         inventory.Add(newItem);
         UpdateInventory();
+    }
+
+    public List<ItemStruct> GetInventory()
+    {
+        return inventory;
     }
 }

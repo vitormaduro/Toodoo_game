@@ -22,8 +22,15 @@ public class PlayerCamera : MonoBehaviour
     public float senstivityY = 1;
     public float minY = 30;
     public float maxY = 50;
+
+    private bool isFading = false;
+    private float alpha;
     private float currentX = 0;
     private float currentY = 1;
+    private float time;
+    private Texture2D texture;
+    private Color fadeColor;
+    public AnimationCurve FadeCurve;
 
     void Update()
     {
@@ -64,5 +71,30 @@ public class PlayerCamera : MonoBehaviour
             Vector3 sphereCastCenter = targetTransform.position + (dir.normalized * hitDist);
             transform.position = sphereCastCenter;
         }
+    }
+
+    public void FadeTo(int color)
+    {
+        texture = new Texture2D(1, 1);
+        fadeColor = (color == 0 ? Color.black : Color.white);
+        isFading = true;
+    }
+
+    public void OnGUI()
+    {
+        if (!isFading) return;
+
+        texture.SetPixel(0, 0, new Color(fadeColor.r, fadeColor.g, fadeColor.b, alpha));
+        texture.Apply();
+
+        time += Time.deltaTime;
+        alpha = FadeCurve.Evaluate(time);
+        GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), texture);
+
+        if (alpha >= 1)
+        {
+            isFading = false;
+            time = 0;
+        } 
     }
 }

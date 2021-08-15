@@ -26,18 +26,33 @@ public class EnemyMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(Vector3.Distance(transform.position, player.transform.position) < 25)
-        {
-            animator.SetBool("isAlert", true);
-            agent.speed = 3.5f;
-            transform.LookAt(player.transform.position);
-            dir = transform.position - player.transform.position;
-            agent.destination = player.transform.position + (dir.normalized * 10f);
-            thisEnemy.isAlert = true;
+        if (thisEnemy.hasWon) return;
 
-            if (Vector3.Distance(transform.position, player.transform.position) <= 11)
+        Vector3 dir = player.transform.position - transform.position + new Vector3(0, 1, 0);
+        int mask = 1 << 6;
+        mask = ~mask;
+
+        if(Physics.Raycast(transform.position, dir, out RaycastHit hit, 25, mask))
+        {
+            if (hit.collider.CompareTag("Player"))
             {
-                thisEnemy.canAttack = true;
+                animator.SetBool("isAlert", true);
+                agent.speed = 3.5f;
+                transform.LookAt(player.transform.position);
+                dir = transform.position - player.transform.position;
+                agent.destination = player.transform.position + (dir.normalized * 10f);
+                thisEnemy.isAlert = true;
+
+                if (hit.distance <= 11)
+                {
+                    thisEnemy.canAttack = true;
+                }
+            } else
+            {
+                animator.SetBool("isAlert", false);
+                agent.speed = 1.25f;
+                thisEnemy.isAlert = false;
+                thisEnemy.canAttack = false;
             }
         }
         else
@@ -56,7 +71,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
-        if (!agent.pathPending && agent.remainingDistance < 0.5f && !thisEnemy.isAlert)
+        if (!agent.pathPending && agent.remainingDistance < 0.5f && !thisEnemy.isAlert && !thisEnemy.hasWon)
             GoToNextPoint();
     }
 }

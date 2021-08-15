@@ -72,8 +72,8 @@ Camera:
   m_GameObject: {fileID: 6191630550486927574}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.0034709887, g: 0.024133742, b: 0.05660379, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -152,15 +152,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 7532361411176365848}
   isMoving: 0
-  CamOffset: {x: 0, y: 0, z: 0}
-  ZoomOffset: {x: 0, y: 0, z: 0}
+  CamOffset: {x: 0, y: 2, z: -10}
   senstivityX: 5
   senstivityY: 1
-  minY: 30
+  minY: 0
   maxY: 50
   wallLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
 --- !u!1 &7537635843095142504
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,6 +993,7 @@ GameObject:
   - component: {fileID: 4717321384379553847}
   - component: {fileID: 7346770010350638313}
   - component: {fileID: 1685129014564822334}
+  - component: {fileID: 831769148210056211}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1052,7 +1052,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!143 &7706419608250691796
 CharacterController:
@@ -1084,10 +1084,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba125a4df8eea54896ef7cae92f1d41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 20
+  playerSpeed: 10
   jumpSpeed: 0.2
   gravitySpeed: 1
-  isInventoryOpen: 0
 --- !u!114 &7346770010350638313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1100,7 +1099,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d225e3a62ad14bc40a85a00d272512fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInventoryOpen: 0
   hasMagic: 1
 --- !u!114 &1685129014564822334
 MonoBehaviour:
@@ -1114,3 +1112,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96ebbb10ce44fca4895367be62846715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &831769148210056211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7538710417644568294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee958397ff5473459292c3305970bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  canMove: 1
+  canAttack: 1

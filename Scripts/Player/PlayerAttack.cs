@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    Animator animator;
-    GameObject fireballPrefab;
-    GameObject projectile;
-    GameObject defendAuraPrefab;
-    GameObject activeAura;
-    Transform projectileSpawnPoint;
+    private Animator animator;
+    private GameObject fireballPrefab;
+    private GameObject projectile;
+    private GameObject defendAuraPrefab;
+    private GameObject activeAura;
+    private Transform projectileSpawnPoint;
+    private PlayerBase player;
 
-    public bool isInventoryOpen = false;
     public bool hasMagic = true;
 
     // Start is called before the first frame update
     void Start()
     {
+        player = GetComponent<PlayerBase>();
         animator = gameObject.GetComponent<Animator>();
         fireballPrefab = Resources.Load<GameObject>("Fireball");
         projectileSpawnPoint = transform.Find("ProjectileSpawn");
@@ -26,19 +27,14 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isInventoryOpen) return;
+        if (!player.canAttack) return;
         if (!hasMagic) return;
 
-        if(Input.GetButtonDown("Fire2"))
+        if(Input.GetButtonDown("Fire2") && player.canAttack)
         {
+            player.canMove = false;
+            player.canAttack = false;
             animator.SetBool("isAttacking2", true);
-
-            projectile = Instantiate(fireballPrefab, projectileSpawnPoint.position, Quaternion.identity);
-            projectile.GetComponent<Rigidbody>().AddForce((transform.forward + transform.up) * 350);
-        } 
-        else if(Input.GetButtonUp("Fire2"))
-        {
-            animator.SetBool("isAttacking2", false);
         }
 
         if(Input.GetButtonDown("Defend"))
@@ -46,11 +42,15 @@ public class PlayerAttack : MonoBehaviour
             animator.SetBool("isDefending", true);
 
             activeAura = Instantiate(defendAuraPrefab, gameObject.transform.position, defendAuraPrefab.transform.rotation);
+            player.moveSpeed = 5f;
+            player.isDefending = true;
         }
         else if(Input.GetButtonUp("Defend"))
         {
             animator.SetBool("isDefending", false);
 
+            player.moveSpeed = 10f;
+            player.isDefending = false;
             Destroy(activeAura);
         }
 
@@ -58,5 +58,14 @@ public class PlayerAttack : MonoBehaviour
         {
             activeAura.transform.position = gameObject.transform.position;
         }
+    }
+
+    public void ShootFireball()
+    {
+        projectile = Instantiate(fireballPrefab, projectileSpawnPoint.position, Quaternion.identity);
+        projectile.GetComponent<Rigidbody>().AddForce((transform.forward + transform.up) * 350);
+        animator.SetBool("isAttacking2", false);
+        player.canMove = true;
+        player.canAttack = true;
     }
 }
